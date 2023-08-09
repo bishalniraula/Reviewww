@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Role>
+<head>
+    <title>
+        Index of roles
+    </title>
+</head>
+<p> <a asp-action="Create">Create New</a> </p>
+<table class="table">
+   
+<thead>
+    
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Roll Name
+            </th>
+         </tr>
+
+
+    
+</thead>
+<tbody>
+    @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Email
+                </td>
+                <td>
+                    @item.RollName
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

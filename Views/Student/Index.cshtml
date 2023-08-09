@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AuthProject.Models.Student>
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+    <span style="color:red;">@TempData["NotExist"]</span>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+               Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                        <a asp-action="Create" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Detail" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+

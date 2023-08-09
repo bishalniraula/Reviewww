@@ -1,0 +1,26 @@
+﻿@model AuthProject.Models.Student
+<head>
+    <title>
+        Detail of  the student 
+    </title>
+</head>
+<h6>Detail Of the Student</h6>
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+           <td>@Model.Name</td>
+           <td>@Model.Address</td>
+        </tr>
+    </tbody>
+
+
+ </table>
+<span> <a asp-action="Index" >Back to Index</a></span>
