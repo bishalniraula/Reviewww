@@ -1,26 +1,34 @@
 ﻿using AuthProject.Data;
+using AuthProject.Interface;
 using AuthProject.Migrations;
 using AuthProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging.Signing;
 
 namespace AuthProject.Controllers
 {
-    [Authorize(Roles="Admin")]
-   
+    [Authorize(Roles = "Admin")]
+
     public class RoleController : Controller
     {
-        private readonly AppDbContext _context;
-        public RoleController(AppDbContext context)
+        private readonly IRole _role;
+        //for testing 
+        private readonly AppDbContext _cotext;
+
+        public RoleController(IRole role, AppDbContext context)
         {
-            _context = context;
+            _cotext = _cotext;
+            _role = role;
         }
 
-       
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<Role> role = _context.roles;
-            return View(role);
+            List<Role> abc = new List<Role>();
+            abc = await _role.GetAllRole();
+
+            return View(abc);
+
         }
         public IActionResult Create()
         {
@@ -28,32 +36,42 @@ namespace AuthProject.Controllers
 
         }
         [HttpPost]
-        public IActionResult Create(Role role) 
-        { 
-            if(ModelState.IsValid)
+        public async Task<IActionResult> Create(Role role)
+        {
+            if (await _role.insertupdate(role))
             {
-                _context.roles.Add(role);
-                _context.SaveChanges();
                 return RedirectToAction("Index");
-
             }
             return View(role);
         }
-        public IActionResult Edit (int ? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            Role role = _context.roles.Find(id);
+            Role role = await _role.GetRoleById(id);
             return View(role);
         }
         [HttpPost]
-        public IActionResult Edit (Role role)
+        public async Task<IActionResult> Edit(Role role)
         {
-            if(ModelState.IsValid)
+            if (await _role.insertupdate(role))
             {
-                _context.roles.Add(role);
-                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(role);
+        }
+        [HttpPost]
+        public IActionResult Delete(int? id)
+        {
+            var abc= _cotext.roles.Where(x => x.Id == id).FirstOrDefault();
+           
+            if (abc != null)
+            {
+                return RedirectToAction("Index");
+
+            }
+            return View();
+            
+            
         }
 
     }

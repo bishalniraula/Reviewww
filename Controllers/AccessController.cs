@@ -45,7 +45,7 @@ namespace AuthProject.Controllers
             List<Claim> claims = new List<Claim>()
                 {
                 new Claim(ClaimTypes.NameIdentifier, modelLogin.Email),
-                new Claim("OtherProperties", "Example Role"),
+          //    new Claim("OtherProperties", "Example Role"),
                 new Claim(ClaimTypes.Role, role.RollName)
               };
 

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace AuthProject.Controllers
 {
@@ -20,6 +21,16 @@ namespace AuthProject.Controllers
 
         public IActionResult Index()
         {
+             // var nameclaimvalue= HttpContext.User.Claims.FirstOrDefault();
+
+            // var abc = ClaimTypes.NameIdentifier;
+
+            string? nameClaimValue = HttpContext.User.Claims
+                .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)
+                ?.Value;
+            ViewBag.User = nameClaimValue;
+
+       
             return View();
         }
 

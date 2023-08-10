@@ -31,13 +31,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">Log Out</a>
                         </li>
-                        @if (this.User.IsInRole("User" ))
-                        {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
-                            </li>
-                        }
+                     
                         @if (this.User.IsInRole("User"))
                         {
 
@@ -52,6 +46,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">ROLE</a>
                             </li>
                         }
+                        
                     </ul>
                 </div>
             </div>
