@@ -9,9 +9,10 @@
     
 </head>
 <body>
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+    {
+        <p> <a asp-action="Create">Create New</a> </p>
+    }
 
     <span style="color:red;">@TempData["NotExist"]</span>
 <table class="table">
@@ -35,11 +36,14 @@
             <td>
                 @item.Address
             </td>
+                    @if (this.User.IsInRole("Admin"))
+                    {
             <td>
                         <a asp-action="Create" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Detail" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
+                    }
         </tr>
 }
     </tbody>

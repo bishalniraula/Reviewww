@@ -12,7 +12,7 @@ namespace AuthProject.Data
         }
         public DbSet<Student>students { get;set; }
         public DbSet<Role> roles { get;set; }
-        public DbSet<ImageUpload>Images { get;set; }
+   
 
     }
 

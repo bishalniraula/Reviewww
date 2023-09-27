@@ -1,6 +1,5 @@
 ﻿using AuthProject.Data;
 using AuthProject.Interface;
-using AuthProject.Migrations;
 using AuthProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Construction;
@@ -79,9 +78,11 @@ namespace AuthProject.Repositories
                 else
                 {
                     Role insert = new Role();
+                    
                     insert.Id = role.Id;
-                    insert.RollName = role.RollName;
-                    insert.Password = role.Password; ;
+                    insert.RollName= role.RollName;
+                    insert.Email = role.Email;
+                    insert.Password = role.Password; 
                     _context.roles.Add(insert);
                     await _context.SaveChangesAsync();
                     return true;

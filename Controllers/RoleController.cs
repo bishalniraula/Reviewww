@@ -1,6 +1,5 @@
 ﻿using AuthProject.Data;
 using AuthProject.Interface;
-using AuthProject.Migrations;
 using AuthProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

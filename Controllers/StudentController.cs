@@ -8,7 +8,8 @@ using System.Security.Claims;
 
 namespace AuthProject.Controllers
 {
-    [Authorize]
+    
+
     public class StudentController : Controller
     {
         private readonly IStudent _student;
@@ -18,14 +19,14 @@ namespace AuthProject.Controllers
             _student = student;
           
         }
-        [Authorize(Roles = "Admin,User")]
+       
         public async Task<IActionResult> Index()
         {
             List<Student> student = await _student.GetAllUser();
             return View(student);
 
         }
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
 
         public async Task<IActionResult> Create(int id)
         {
@@ -49,7 +50,7 @@ namespace AuthProject.Controllers
 
             return View(student);
         }
-        
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public async Task<IActionResult> Create(Student student)
         {
@@ -76,6 +77,7 @@ namespace AuthProject.Controllers
 
         //}
         //[HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
