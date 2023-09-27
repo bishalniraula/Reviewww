@@ -1,11 +1,12 @@
 ﻿@using System.Security.Claims;
 <!DOCTYPE html>
+
 @{
 
 
 }
-<html lang="en">
-<head>
+<html lang="en" class="disable-scroll">
+<head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AuthProject</title>
@@ -15,84 +16,60 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+   
+    <link href="~/css/Images/tw.ico" rel="shortcut icon" type="image/x-icon" />
+     
+    
+   
 </head>
-<body>
+<body style="overflow: hidden;">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AuthProject</a>
+                <a><i class="fa fa-calendar-o"></i>DATE TODAY: @DateTime.Now.ToString("yyyy/MM/dd")</a>
+                <div class="col-md-2 col-sm-12">
+
+                    <div class="logo">
+                        <a href="@Url.Action("Index", "Home" )">
+                            <img style="width: 55px; padding-right: 10px;" src="~/css/Images/mmm.gif" />
+                        </a>
+                    </div>
+
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="topnav-right" d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">Log Out</a>
-                            </li>
 
-                            @*   <li class="nav-item">
-                        <p>HI @ViewBag.User </p>
-
-                        </li>
-                        *@
-                            <li><a><i class="fa fa-calendar-o"></i>DATE: @DateTime.Now.ToString("yyyy/MM/dd")</a></li>
-
-                            <li class="nav-item">
                                 <p>HI @User.FindFirstValue(ClaimTypes.NameIdentifier)!</p>
+
+
                             </li>
 
                         }
                         else
+
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="Login">Login</a>
                             </li>
                         }
-                        @*   <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">Log Out</a>
-                        </li>
-                        } *@
-
-
-
-                        @if (this.User.IsInRole("Admin") || this.User.IsInRole("User"))
-                        {
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
-                            </li>
-
-
-                        }
-
-                        @if (this.User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">ROLE</a>
-                            </li>
-                        }
-
                     </ul>
 
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
+    </header>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy;  RAJKUMAR NIRAULA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -100,6 +77,87 @@
     </footer>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="fs-5 d-none d-sm-inline">Menu</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="MY_PROJECT">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Privacy" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Privacy</span>
+                            </a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                            </a>
+
+
+                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+
+                                    @if (this.User.IsInRole("Admin") || this.User.IsInRole("User"))
+                                    {
+                                        <li class="w-100">
+                                            <a class="nav-link px-0" asp-area="" asp-controller="Student" asp-action="Index">
+                                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Student</span>
+                                            </a>
+
+                                        </li>
+                                    }
+
+                                    @if (this.User.IsInRole("Admin"))
+                                    {
+                                        <li class="w-100">
+                                            <a class="nav-link px-0" asp-area="" asp-controller="Role" asp-action="Index">
+                                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Role</span>
+                                            </a>
+
+                                        </li>
+                                    }
+
+                                }
+                            </ul>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Home" asp-action="LogOut" class="nav-link px-0 align-middle">
+                                    <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">logout</span>
+                                </a>
+                            </li>
+
+
+                        }
+
+
+                    </ul>
+
+
+                </div>
+            </div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
 </body>
 </html>
- 
