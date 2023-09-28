@@ -35,7 +35,19 @@
                             <img style="width: 55px; padding-right: 10px;" src="~/css/Images/mmm.gif" />
                         </a>
                     </div>
+                   
 
+                </div>
+                <div class="col-md-2 col-sm-12">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+
+                        <p> You Are @User.FindFirstValue(ClaimTypes.Role)</p>
+
+
+                    </li>
+
+                </ul>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -70,11 +82,7 @@
         </nav>
 
     </header>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy;  RAJKUMAR NIRAULA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    
 
     @await RenderSectionAsync("Scripts", required: false)
 
@@ -107,19 +115,15 @@
                                 <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                             </a>
 
-
-                            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-
+                            <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-
                                     @if (this.User.IsInRole("Admin") || this.User.IsInRole("User"))
                                     {
                                         <li class="w-100">
                                             <a class="nav-link px-0" asp-area="" asp-controller="Student" asp-action="Index">
                                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Student</span>
                                             </a>
-
                                         </li>
                                     }
 
@@ -129,13 +133,12 @@
                                             <a class="nav-link px-0" asp-area="" asp-controller="Role" asp-action="Index">
                                                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Role</span>
                                             </a>
-
                                         </li>
                                     }
-
                                 }
                             </ul>
                         </li>
+
                         @if (User.Identity.IsAuthenticated)
                         {
 
@@ -160,4 +163,10 @@
         </div>
     </div>
 </body>
+ 
 </html>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy;  RAJKUMAR NIRAULA - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>

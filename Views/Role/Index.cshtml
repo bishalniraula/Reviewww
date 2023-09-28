@@ -9,6 +9,23 @@
 {
     <p> <a asp-action="Create">Create New</a> </p>
 }
+@TempData["User Not Found"]
+<form method="post" asp-action="Index" asp-controller="Role">
+    <div class="input-group">
+        <div class="form-outline">
+            <input type="text" class="form-control" name="Email" /> 
+            <label class="form-label">Search</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
+
+
+
+
+@* starts here *@
 <table class="table">
    
 <thead>

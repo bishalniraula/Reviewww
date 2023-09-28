@@ -1,9 +1,40 @@
-﻿
+﻿@using System.Security.Claims;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "WELCOME " ;
 }
+<h1>@ViewData["Title"]</h1>
+@User.FindFirstValue(ClaimTypes.Role)
+<p>The Total Number Of Roles is @ViewBag.Count <p>
+<p> Total Number Of Student  is @ViewBag.Stucount <p>
+    <button class="btn btn-sm  btn-primary m-2" id="btnStudent">Add Student </button>
 
-<div class="text-center">
-   
-    <p>hi</p>
+    <div class="madal fade modal" id="ShowStudent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="text-info modal-title">
+                    Add Student
+                </h1>
+
+                <button class="close text-danger" data-dismiss="modal">
+                 &times;
+
+                </button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+
+        $('#btnStudent').click(function ()
+    
+    {
+            $('#ShowStudent').modal('show');
+    })
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>

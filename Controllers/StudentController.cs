@@ -24,6 +24,16 @@ namespace AuthProject.Controllers
         {
             List<Student> student = await _student.GetAllUser();
             return View(student);
+       
+
+
+            //var role = _context.roles("Exec [dbo].[Sp_SearchStudent]").ToList();
+
+
+            //        SqlQuery<ObjectResult>("exec [dbo].[current_call] @call_id", new SqlParameter("call_id", c_id)).ToList();
+
+            //
+
 
         }
         [Authorize(Roles = "Admin,User")]

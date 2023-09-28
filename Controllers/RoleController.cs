@@ -3,7 +3,10 @@ using AuthProject.Interface;
 using AuthProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging.Signing;
+using System.Data;
 
 namespace AuthProject.Controllers
 {
@@ -13,11 +16,11 @@ namespace AuthProject.Controllers
     {
         private readonly IRole _role;
         //for testing 
-        private readonly AppDbContext _cotext;
+        private readonly AppDbContext _context;
 
         public RoleController(IRole role, AppDbContext context)
         {
-            _cotext = _cotext;
+            _context = context;
             _role = role;
         }
 
@@ -25,7 +28,8 @@ namespace AuthProject.Controllers
         {
             List<Role> abc = new List<Role>();
             abc = await _role.GetAllRole();
-
+            int count = _context.Database.ExecuteSqlRaw("EXEC CountRole");
+            ViewBag.Count = count;
             return View(abc);
 
         }
@@ -61,7 +65,7 @@ namespace AuthProject.Controllers
         [HttpPost]
         public IActionResult Delete(int? id)
         {
-            var abc= _cotext.roles.Where(x => x.Id == id).FirstOrDefault();
+            var abc= _context.roles.Where(x => x.Id == id).FirstOrDefault();
            
             if (abc != null)
             {
@@ -72,6 +76,28 @@ namespace AuthProject.Controllers
             
             
         }
+        [HttpPost]
+        public async Task<IActionResult> Index(string Email)
+        {
+            if (Email != null)
+            {
 
+
+                List<Role> roles = new List<Role>();
+
+                SqlParameter emailParameter = new SqlParameter("@Email", SqlDbType.NVarChar, 50);
+                emailParameter.Value = Email;
+
+
+
+                roles = await _context.roles.FromSqlRaw("EXEC Sp_SearchRole @Email", emailParameter).ToListAsync();
+                if (roles.Count != 0)
+                {
+                    return View(roles);
+                }
+            }
+            TempData["User Not Found"] = "Not Found";
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -6,31 +6,36 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using AuthProject.Data;
+using Microsoft.Extensions.Logging;
+using Humanizer;
 
 namespace AuthProject.Controllers
 {
-    [Authorize]
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AppDbContext _context;
+        public HomeController(AppDbContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
+        
 
         public IActionResult Index()
         {
-             // var nameclaimvalue= HttpContext.User.Claims.FirstOrDefault();
-
-            // var abc = ClaimTypes.NameIdentifier;
-
             string? nameClaimValue = HttpContext.User.Claims
                 .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)
                 ?.Value;
             ViewBag.User = nameClaimValue;
 
-       
+            var count = _context.roles.Count();
+            var StuCount= _context.students.Count();
+            ViewBag.Count = count;
+            ViewBag.Stucount= StuCount;
             return View();
         }
 
