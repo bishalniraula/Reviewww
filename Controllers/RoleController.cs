@@ -43,9 +43,11 @@ namespace AuthProject.Controllers
         {
             if (await _role.insertupdate(role))
             {
-                return RedirectToAction("Index");
+                return Json(new { success = true });
+                // return RedirectToAction("Index");
             }
-            return View(role);
+            return Json(new { success = false });
+           // return View(role);
         }
         public async Task<IActionResult> Edit(int? id)
         {
