@@ -30,7 +30,7 @@
                 <button class="btn btn-sm  btn-primary m-2" id="btnStuden">Add Student </button>
             </td>
             <td>
-                <button class="btn btn-sm  btn-primary m-2" id="btnStudent">Vreate New User </button>
+                <button class="btn btn-sm  btn-primary m-2" id="btnStudent">Create User </button>
             </td>
         </tr>
         
@@ -43,31 +43,31 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="text-info modal-title">
+                    <h1 class="text-info modal-title text-end">
                         Add User
                     </h1>
 
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close border-danger" data-bs-dismiss="modal" aria-label="Close">
 
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body"></div>
                 <form method="post">
-                    <div class="form-group">
+                    <div class="form-group col-md-11 align-content-center" style="margin-left:10px">
                         <label>
                             Email
                         </label>
-                        <input type="text" placeholder="Enter the Email here " class="form-control" id="Email" />
+                        <input  type="text" placeholder="Enter the Email here " class="form-control" id="Email" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-11 align-content-center" style="margin-left:10px">
                         <label>
                             Password
                         </label>
-                        <input type="text" placeholder="Enter the Password " class="form-control" id="Password" />
+                        <input type="password" placeholder="Enter the Password " class="form-control" id="Password" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-11 align-content-center" style="margin-left:10px">
                         <label>
                             Role
                         </label>
@@ -80,7 +80,7 @@
 
 
                 <div class="modal-footer">
-                    <button class="btn-primary" onclick="AddStudents()" id="AddStudent">Save</button>
+                    <button class="btn btn-primary" onclick="AddStudents()" id="AddStudent">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     @*  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> *@
 
@@ -97,7 +97,18 @@
     })
 
     function AddStudents() {
-
+        if ($('#Email').val() == '') {
+            alert("email is required");
+            return;
+        }
+        if ($('#Password').val() == '') {
+            alert("password is required");
+            return;
+        }
+        if ($('#Role').val() == '') {
+            alert("role is required");
+            return;
+        }
         var objData = {
 
             Email: $('#Email').val(),
