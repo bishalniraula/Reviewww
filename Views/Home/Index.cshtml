@@ -1,96 +1,130 @@
 ﻿@using System.Security.Claims;
-@{
-    ViewData["Title"] = "WELCOME ";
-}
-<h1>@ViewData["Title"]</h1>
-@User.FindFirstValue(ClaimTypes.Role)
-<p>The Total Number Of Roles is @ViewBag.Count <p>
-<p> Total Number Of Student  is @ViewBag.Stucount <p>
-    <button class="btn btn-sm  btn-primary m-2" id="btnStudent">Add User </button>
-    <div class="card-body">
-        <div class="modal fade" id="ShowStudent">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="text-info modal-title">
-                            Add User
-                        </h1>
 
-                        <button class="close text-danger" data-dismiss="modal">&times; </button>
+<div class="p-3 mb-2 bg-primary text-white">Welcome @User.FindFirstValue(ClaimTypes.Role) !! </div>
+
+<table class="table table-bordered">
+    <thead>
+
+
+        <tr>
+            <th>
+                Total Number Of Student
+            </th>
+            <th>
+                Total Number Of User
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @ViewBag.Count
+            </td>
+            <td>
+                @ViewBag.Stucount
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-sm  btn-primary m-2" id="btnStuden">Add Student </button>
+            </td>
+            <td>
+                <button class="btn btn-sm  btn-primary m-2" id="btnStudent">Vreate New User </button>
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+<div class="card-body">
+    <div class="modal fade" id="ShowStudent">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="text-info modal-title">
+                        Add User
+                    </h1>
+
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <form method="post">
+                    <div class="form-group">
+                        <label>
+                            Email
+                        </label>
+                        <input type="text" placeholder="Enter the Email here " class="form-control" id="Email" />
                     </div>
-                    <div class="modal-body"></div>
-                    <form method="post">
-                        <div class="form-group">
-                            <label>
-                                Email
-                            </label>
-                            <input type="text" placeholder="Enter the Email here " class="form-control" id="Email" />
-                        </div>
 
-                        <div class="form-group">
-                            <label>
-                                Password
-                            </label>
-                            <input type="text" placeholder="Enter the Password " class="form-control" id="Password" />
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                Role
-                            </label>
-                            <input type="text" placeholder="Enter the Role " class="form-control" id="Role" />
-                        </div>
-
-                    </form>
-
-
-
-
-                    <div class="modal-footer">
-                        <button class="btn-primary" onclick="AddStudents()" id="AddStudent">Save</button>
-                        <button class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
-
+                    <div class="form-group">
+                        <label>
+                            Password
+                        </label>
+                        <input type="text" placeholder="Enter the Password " class="form-control" id="Password" />
                     </div>
+                    <div class="form-group">
+                        <label>
+                            Role
+                        </label>
+                        <input type="text" placeholder="Enter the Role " class="form-control" id="Role" />
+                    </div>
+
+                </form>
+
+
+
+
+                <div class="modal-footer">
+                    <button class="btn-primary" onclick="AddStudents()" id="AddStudent">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    @*  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> *@
+
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+</div>
+<script type="text/javascript">
 
-        $('#btnStudent').click(function () {
-            debugger
-            $('#ShowStudent').modal('show');
-        })
+    $('#btnStudent').click(function () {
+        debugger
+        $('#ShowStudent').modal('show');
+    })
 
-        function AddStudents() {
+    function AddStudents() {
 
-            var objData = {
-                
-                Email: $('#Email').val(),
-                Password: $('#Password').val(),
-                RollName: $('#Role').val(),
+        var objData = {
+
+            Email: $('#Email').val(),
+            Password: $('#Password').val(),
+            RollName: $('#Role').val(),
+        }
+
+        $.ajax({
+            dataType: 'json',
+            type: 'Post',
+            url: '/Role/Create',
+            data: objData,
+
+
+            success: function () {
+                //console.log("xx", objData);
+                alert('Data saved');
+            },
+            false: function () {
+                alert("data not saved");
             }
 
-            $.ajax({
-                dataType: 'json',
-                type: 'Post',
-                url: '/Role/Create',
-                data: objData,
+
+        })
+    }
+</script>
 
 
-                success: function () {
-                    //console.log("xx", objData);
-                    alert('Data saved');
-                },
-                error: function () {
-                   
-                    alert("data nooooo saved");
-                }
-
-
-            })
-        }
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>

@@ -10,7 +10,7 @@
     <p> <a asp-action="Create">Create New</a> </p>
 }
 @TempData["User Not Found"]
-<form method="post" asp-action="Index" asp-controller="Role">
+@* <form method="post" asp-action="Index" asp-controller="Role">
     <div class="input-group">
         <div class="form-outline">
             <input type="text" class="form-control" name="Email" /> 
@@ -20,10 +20,16 @@
             <i class="fas fa-search"></i>
         </button>
     </div>
+</form> *@
+
+
+
+
+@* sgsfstarts here *@
+<form class="form-inline" method="post" asp-action="Index" asp-controller="Role">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" name="Email" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 </form>
-
-
-
 
 @* starts here *@
 <table class="table">
